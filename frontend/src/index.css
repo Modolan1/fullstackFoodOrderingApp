@@ -4,6 +4,7 @@
   margin: 0;
   box-sizing: border-box;
   font-family: Outfit;
+  scroll-behavior: smooth;
 }
 
 body{
@@ -28,4 +29,24 @@ a{
     opacity: 1;
   }
   
+}
+
+/* Responsive Styles */
+@media (max-width: 1024px) {
+  .app {
+    width: 90%;
+  }
+}
+
+@media (max-width: 768px) {
+  .app {
+    width: 95%;
+  }
+}
+
+@media (max-width: 480px) {
+  .app {
+    width: 100%;
+    padding: 0 10px;
+  }
 } 

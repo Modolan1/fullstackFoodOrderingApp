@@ -1,0 +1,91 @@
+.list-page {
+	width: 100%;
+}
+
+.list-card {
+	background: #ffffff;
+	border: 1px solid #f0e4d7;
+	border-radius: 18px;
+	overflow: hidden;
+	box-shadow: 0 14px 30px rgba(23, 23, 23, 0.05);
+}
+
+.list-header,
+.list-row {
+	display: grid;
+	grid-template-columns: 90px minmax(140px, 1.5fr) 1fr 120px 120px;
+	gap: 16px;
+	align-items: center;
+	padding: 16px 20px;
+}
+
+.list-header {
+	background: #fff7ef;
+	font-size: 0.85rem;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 0.04em;
+	color: #6b7280;
+}
+
+.list-row {
+	border-top: 1px solid #f3ede5;
+	color: #1f2937;
+}
+
+.list-image {
+	width: 64px;
+	height: 64px;
+	border-radius: 14px;
+	object-fit: cover;
+	background: #f3f4f6;
+}
+
+.delete-button {
+	padding: 10px 14px;
+	border: 0;
+	border-radius: 999px;
+	background: #111827;
+	color: #fff;
+	font: inherit;
+	cursor: pointer;
+}
+
+.list-message,
+.list-error {
+	padding: 20px;
+	margin: 0;
+}
+
+.list-message {
+	color: #6b7280;
+}
+
+.list-error {
+	color: #b91c1c;
+	border-top: 1px solid #f3ede5;
+}
+
+@media (max-width: 900px) {
+	.list-header {
+		display: none;
+	}
+
+	.list-row {
+		grid-template-columns: 72px 1fr;
+		gap: 12px;
+	}
+
+	.list-row span,
+	.list-row button {
+		grid-column: 2;
+	}
+
+	.list-image {
+		grid-row: span 4;
+	}
+
+	.delete-button {
+		width: fit-content;
+	}
+}

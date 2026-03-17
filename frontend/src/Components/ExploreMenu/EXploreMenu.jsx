@@ -1,5 +1,5 @@
 import React from 'react'
-import './EXploreMenu.css'
+import './ExploreMenu.css'
 import { Menulist } from '../../assets/assets'
 
 const EXploreMenu = ({category, setCategory}) => {

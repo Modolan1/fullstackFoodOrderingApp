@@ -21,16 +21,16 @@ export const assets = {
 }
 
 export const Menulist = [
-    {menu_name: "Jollof Rice",
+    {menu_name: "rice" ,
      menu_image: jollof 
     },
 
-    {meuu_name: "Ogbono Soup",
+    {meuu_name: "soup",
      menu_image:   ogbono
 
     },
 
-    {menu_name: "FuFu with Egusi",
+    {menu_name: "swallow",
      menu_image: nigeria   
 
     },
@@ -40,22 +40,22 @@ export const Menulist = [
         menu_image: Egusi
     },  
 
-    {   menu_name: "Jollof Rice",
+    {   menu_name: "rice" ,
         menu_image: jollof 
     },
 
-    {   menu_name: "Ogbono Soup",
+    {   menu_name: "soup",
         menu_image:   ogbono
 
     },
 
-    {   menu_name: "FuFu with Egusi",
+    {   menu_name: "swallow" ,
         menu_image: nigeria   
 
     },
 
     {
-        menu_name: "Egusi Soup",
+        menu_name: "soup",
         menu_image: Egusi
     }
 

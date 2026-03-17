@@ -39,3 +39,56 @@
     font-size: max(1vw,13px);
     border-radius: 50px;
 }
+
+/* Responsive Styles */
+@media (max-width: 1050px) {
+  .header {
+    height: 38vw;
+  }
+  
+  .header-contents {
+    max-width: 45%;
+  }
+}
+
+@media (max-width: 750px) {
+  
+  .header-contents {
+    max-width: 55%;
+
+  }
+  
+  .header-contents h1 {
+    font-size: max(3.5vw, 20px);
+  }
+  
+  .header-contents p {
+    display: none;
+    padding: 2vw 4vw;
+  }
+}
+
+/* @media (max-width: 480px) {
+  .header {
+    height: 60vw;
+    margin: 15px auto;
+  }
+  
+  .header-contents {
+    max-width: 85%;
+    gap: 1vw;
+  }
+  
+  .header-contents h1 {
+    font-size: 18px;
+  }
+  
+  .header-contents p {
+    font-size: 14px;
+  }
+  
+  .header-contents button {
+    padding: 2vw 4vw;
+    font-size: 12px;
+  }
+} */

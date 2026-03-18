@@ -1,4 +1,4 @@
-const fallbackApiUrl = 'http://localhost:4000'
+const fallbackApiUrl = https://backend-u9cv.onrender.com'
 
 export const API_URL = (import.meta.env.VITE_API_URL || fallbackApiUrl).trim().replace(/\/$/, '')
 

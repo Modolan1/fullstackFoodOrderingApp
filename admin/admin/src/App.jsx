@@ -7,6 +7,7 @@ import { Route, Routes } from 'react-router-dom'
 import Add from './pages/Add/Add'
 import List from './pages/List/List'
 import Orders from './pages/Orders/Orders'
+import Reports from './pages/Reports/Reports'
 import Login from './pages/Login/Login'
 import { AdminContext } from './Context/AdminContext'
 
@@ -33,6 +34,7 @@ const App = () => {
             <Route path='/add' element={<Add/>}/>
             <Route path='/list' element={<List/>}/>
             <Route path='/orders' element={<Orders/>}/>
+            <Route path='/reports' element={<Reports/>}/>
           </Routes>
         </main>
       </div>

@@ -1,34 +1,41 @@
-import { getAdminProfile as getAdminProfileService, loginAdmin as loginAdminService } from '../services/adminService.js'
-import { getErrorStatusCode } from '../utils/appError.js'
+import {
+    getAdminProfile as getAdminProfileService,
+    getAdminReports as getAdminReportsService,
+    loginAdmin as loginAdminService,
+} from '../services/adminService.js'
+import { asyncHandler } from '../utils/appError.js'
 
-const loginAdmin = async (req, res) => {
-    try {
-        const result = await loginAdminService(req.body)
+const loginAdmin = asyncHandler(async (req, res) => {
+    const result = await loginAdminService(req.body)
 
-        return res.json({
-            success: true,
-            message: 'Admin login successful.',
-            token: result.token,
-            admin: result.admin,
-        })
-    } catch (error) {
-        console.log(error)
-        return res.status(getErrorStatusCode(error)).json({ success: false, message: error.message || 'Error logging in as admin.' })
-    }
-}
+    return res.json({
+        success: true,
+        message: 'Admin login successful.',
+        token: result.token,
+        admin: result.admin,
+    })
+})
 
-const getAdminProfile = async (req, res) => {
-    try {
-        const admin = await getAdminProfileService()
+const getAdminProfile = asyncHandler(async (req, res) => {
+    const admin = await getAdminProfileService()
 
-        return res.json({
-            success: true,
-            admin,
-        })
-    } catch (error) {
-        console.log(error)
-        return res.status(getErrorStatusCode(error)).json({ success: false, message: error.message || 'Error loading admin profile.' })
-    }
-}
+    return res.json({
+        success: true,
+        admin,
+    })
+})
 
-export { getAdminProfile, loginAdmin }
+const getAdminReports = asyncHandler(async (req, res) => {
+    const reports = await getAdminReportsService({
+        period: req.query.period,
+        startDate: req.query.startDate,
+        endDate: req.query.endDate,
+    })
+
+    return res.json({
+        success: true,
+        reports,
+    })
+})
+
+export { getAdminProfile, getAdminReports, loginAdmin }

@@ -14,4 +14,13 @@ const getErrorStatusCode = (error) => {
   return 500
 }
 
-export { AppError, getErrorStatusCode }
+/**
+ * Wraps an async Express route handler and forwards any thrown errors
+ * to the Express global error handler via next(), eliminating repetitive
+ * try/catch boilerplate in every controller.
+ */
+const asyncHandler = (fn) => (req, res, next) => {
+  Promise.resolve(fn(req, res, next)).catch(next)
+}
+
+export { AppError, asyncHandler, getErrorStatusCode }

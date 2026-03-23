@@ -72,7 +72,7 @@ const LoginPopup = ({ setShowLogin }) => {
         ? sanitizeEmail(value)
         : name === 'password'
           ? sanitizePassword(value)
-          : sanitizeText(value, { maxLength: 80 })
+          : sanitizeText(value, { maxLength: 80, trim: false })
 
     setFormData((current) => ({ ...current, [name]: nextValue }))
     setFieldErrors((current) => ({ ...current, [name]: validateField(name, nextValue) }))

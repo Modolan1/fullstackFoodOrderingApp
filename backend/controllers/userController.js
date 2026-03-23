@@ -3,52 +3,37 @@ import {
   loginUser as loginUserService,
   registerUser as registerUserService,
 } from '../services/userService.js'
-import { getErrorStatusCode } from '../utils/appError.js'
+import { asyncHandler } from '../utils/appError.js'
 
-const registerUser = async (req, res) => {
-  try {
-    const result = await registerUserService(req.body)
+const registerUser = asyncHandler(async (req, res) => {
+  const result = await registerUserService(req.body)
 
-    return res.status(201).json({
-      success: true,
-      message: 'Account created successfully.',
-      token: result.token,
-      user: result.user,
-    })
-  } catch (error) {
-    console.log(error)
-    return res.status(getErrorStatusCode(error)).json({ success: false, message: error.message || 'Error creating account.' })
-  }
-}
+  return res.status(201).json({
+    success: true,
+    message: 'Account created successfully.',
+    token: result.token,
+    user: result.user,
+  })
+})
 
-const loginUser = async (req, res) => {
-  try {
-    const result = await loginUserService(req.body)
+const loginUser = asyncHandler(async (req, res) => {
+  const result = await loginUserService(req.body)
 
-    return res.json({
-      success: true,
-      message: 'Login successful.',
-      token: result.token,
-      user: result.user,
-    })
-  } catch (error) {
-    console.log(error)
-    return res.status(getErrorStatusCode(error)).json({ success: false, message: error.message || 'Error logging in.' })
-  }
-}
+  return res.json({
+    success: true,
+    message: 'Login successful.',
+    token: result.token,
+    user: result.user,
+  })
+})
 
-const getCurrentUser = async (req, res) => {
-  try {
-    const user = await getCurrentUserService(req.userId)
+const getCurrentUser = asyncHandler(async (req, res) => {
+  const user = await getCurrentUserService(req.userId)
 
-    return res.json({
-      success: true,
-      user,
-    })
-  } catch (error) {
-    console.log(error)
-    return res.status(getErrorStatusCode(error)).json({ success: false, message: error.message || 'Error loading user profile.' })
-  }
-}
+  return res.json({
+    success: true,
+    user,
+  })
+})
 
 export { getCurrentUser, loginUser, registerUser }

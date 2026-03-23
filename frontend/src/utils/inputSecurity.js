@@ -12,7 +12,7 @@ const normalizeValue = (value) => String(value ?? '')
 
 export const containsUnsafeMarkup = (value) => UNSAFE_MARKUP_PATTERN.test(normalizeValue(value))
 
-export const sanitizeText = (value, { maxLength = 120, multiline = false } = {}) => {
+export const sanitizeText = (value, { maxLength = 120, multiline = false, trim = true } = {}) => {
   let sanitized = normalizeValue(value).replace(/[<>]/g, '')
 
   if (multiline) {
@@ -20,9 +20,11 @@ export const sanitizeText = (value, { maxLength = 120, multiline = false } = {})
       .replace(/\r\n?/g, '\n')
       .replace(/[^\S\n]+/g, ' ')
       .replace(/\n{3,}/g, '\n\n')
-      .trim()
+
+    sanitized = trim ? sanitized.trim() : sanitized.replace(/^\s+/, '')
   } else {
-    sanitized = sanitized.replace(/\s+/g, ' ').trim()
+    sanitized = sanitized.replace(/\s+/g, ' ')
+    sanitized = trim ? sanitized.trim() : sanitized.replace(/^\s+/, '')
   }
 
   return sanitized.slice(0, maxLength)

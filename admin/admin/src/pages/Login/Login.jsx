@@ -10,7 +10,7 @@ const Login = () => {
 
   const onChangeHandler = (event) => {
     const { name, value } = event.target
-    setCredentials((current) => ({ ...current, [name]: value.trimStart() }))
+    setCredentials((current) => ({ ...current, [name]: value }))
   }
 
   const onSubmitHandler = async (event) => {

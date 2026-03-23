@@ -62,11 +62,11 @@ const PlaceOrder = () => {
       case 'phone':
         return sanitizePhone(value)
       case 'street':
-        return sanitizeText(value, { maxLength: 160 })
+        return sanitizeText(value, { maxLength: 160, trim: false })
       case 'zipCode':
-        return sanitizeText(value, { maxLength: 12 })
+        return sanitizeText(value, { maxLength: 12, trim: false })
       default:
-        return sanitizeText(value, { maxLength: 80 })
+        return sanitizeText(value, { maxLength: 80, trim: false })
     }
   }
 

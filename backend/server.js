@@ -2,6 +2,7 @@ import "dotenv/config"
 import express from "express"
 import cors from "cors"
 import { connectDB } from "./config/db.js"
+import { AppError, getErrorStatusCode } from "./utils/appError.js"
 import { handleStripeWebhook } from "./controllers/orderController.js"
 import adminRouter from "./routes/adminRoute.js"
 import foodRouter from "./routes/foodRoute.js"
@@ -30,14 +31,18 @@ app.get("/", (req, res) => {
     res.send("API working")
 })
 
-// Global error handler
+// Global error handler — all errors thrown in services/controllers land here
 app.use((err, req, res, next) => {
     if (err instanceof SyntaxError && err.status === 400 && "body" in err) {
         return res.status(400).json({ success: false, message: "Malformed JSON request body." })
     }
 
-    console.error("Global error:", err.message)
-    res.status(500).json({ success: false, message: "Server error: " + err.message })
+    const statusCode = getErrorStatusCode(err)
+    console.error(`[${statusCode}] ${err.message}`)
+
+    // Only expose the message for known operational errors; hide internals for unexpected ones
+    const message = err instanceof AppError ? err.message : "An unexpected server error occurred."
+    return res.status(statusCode).json({ success: false, message })
 })
 
 const startServer = async () => {

@@ -10,4 +10,10 @@ const updateOrderById = (orderId, update, options = { new: true }) => (
 
 const findAllOrders = () => orderModel.find({}).sort({ createdAt: -1 })
 
-export { createOrder, findAllOrders, findOrderById, updateOrderById }
+const findRecentOrders = (filter = {}, limit = 5) => (
+  orderModel.find(filter).sort({ createdAt: -1 }).limit(limit)
+)
+
+const aggregateOrders = (pipeline) => orderModel.aggregate(pipeline)
+
+export { aggregateOrders, createOrder, findAllOrders, findOrderById, findRecentOrders, updateOrderById }

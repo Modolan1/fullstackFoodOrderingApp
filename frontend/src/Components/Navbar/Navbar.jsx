@@ -29,6 +29,7 @@ export const Navbar = ({ setShowLogin }) => {
     <>
     {showCartPopup && <div className='cart-popup-overlay' onClick={() => setShowCartPopup(false)}></div>}
     <div className='navbar'>
+     {/* <img src={assets.food} className='logo-image' alt='search logo'/> */}
         <a href='/' className='logo'>Afric<span>Food</span></a>
 
          <ul className='navbar-menu'>

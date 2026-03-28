@@ -9,10 +9,10 @@ const initialFormState = {
   name: '',
   description: '',
   price: '',
-  category: 'Salad',
+  category: 'soup',
 }
 
-const categories = ['Salad', 'Rolls', 'Desserts', 'Sandwich', 'Cake', 'Pure Veg', 'Pasta', 'Noodles']
+const categories = ['rice', 'soup', 'dessert', 'swallow', 'snacks', 'drinks', 'pepper-soup']
 const foodNamePattern = /^[\p{L}\d\s&().,'/-]+$/u
 
 const Add = () => {

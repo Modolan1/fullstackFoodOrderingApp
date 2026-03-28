@@ -1,7 +1,7 @@
 import mongoose from "mongoose"
 import validator from "validator"
 
-const foodCategories = ["Salad", "Rolls", "Desserts", "Sandwich", "Cake", "Pure Veg", "Pasta", "Noodles"]
+const foodCategories = ["rice", "soup", "dessert", "swallow", "snacks", "drinks", "pepper-soup"]
 const orderStatuses = ["Food Processing", "Out for Delivery", "Delivered"]
 const paymentMethods = ["Cash On Delivery", "Card"]
 const imageMimeTypes = ["image/jpeg", "image/png", "image/webp", "image/gif"]

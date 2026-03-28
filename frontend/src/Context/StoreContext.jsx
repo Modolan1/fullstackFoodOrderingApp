@@ -1,12 +1,13 @@
 import { createContext, useEffect, useState } from "react";
 import { Food_List } from "../assets/assets";
-import { apiFetch } from "../utils/api";
+import { API_URL, apiFetch } from "../utils/api";
 
 export const StoreContext = createContext(null)
 const authStorageKey = "foodDeliveryToken"
 
 const StoreContextProvider = (props) =>{
 
+    const [foodList, setFoodList] = useState(Food_List)
     const [cartItems, setCartItems] = useState({})
     const [token, setToken] = useState(() => localStorage.getItem(authStorageKey) || "")
     const [currentUser, setCurrentUser] = useState(null)
@@ -94,12 +95,43 @@ const StoreContextProvider = (props) =>{
         return result.user
     }
 
+    const fetchFoodList = async () => {
+        try {
+            const { response, result } = await apiFetch('/api/food/list')
+
+            if (!response.ok || !result.success) {
+                throw new Error(result.message || 'Unable to load menu items.')
+            }
+
+            const normalizedFoods = (result.data || []).map((item) => {
+                const imagePath = String(item.image || '')
+                const isAbsoluteUrl = /^https?:\/\//i.test(imagePath)
+                const normalizedImage = isAbsoluteUrl
+                    ? imagePath
+                    : imagePath
+                        ? `${API_URL}/images/${imagePath}`
+                        : ''
+
+                return {
+                    ...item,
+                    image: normalizedImage,
+                }
+            })
+
+            setFoodList(normalizedFoods)
+        } catch {
+            // Keep local fallback list if API fetch fails.
+            setFoodList(Food_List)
+        }
+    }
+
     useEffect(() => {
         fetchCurrentUser(token)
+        fetchFoodList()
     }, [])
 
     const contextValue = {
-        Food_List,
+        Food_List: foodList,
         cartItems,
         setCartItems,
         addtoCart,

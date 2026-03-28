@@ -41,14 +41,23 @@
 	border-radius: 999px;
 	cursor: pointer;
 }
+.logo {
+	padding-right: .3rem;
+	color: rgb(56, 49, 49);
+    font-size: 20px;
+}
+ .logo span{
+	color: rgb(224, 9, 9);
 
- .navbar .logo {
-	/* font-size: 1.5rem;
+}
+
+ /* .navbar .logo {
+   font-size: 1.5rem;
 	font-weight: 700;
 	color: #1f2937;
-	letter-spacing: 0.3px; */
+	letter-spacing: 0.3px; 
 	width: max(10%,80px);
-}
+} */
 /*
 .navbar-right {
 	display: flex;

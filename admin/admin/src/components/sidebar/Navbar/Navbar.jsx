@@ -8,7 +8,7 @@ const Navbar = () => {
 
   return (
     <div className='navbar'>
-      <img className='logo' src={assets.parcel_icon} alt='logo'/>
+     <a href='/' className='logo'>Afric<span>Food</span></a>
       <div className='navbar-admin'>
         <div className='navbar-admin-meta'>
           <span>{adminUser?.name || 'Admin'}</span>

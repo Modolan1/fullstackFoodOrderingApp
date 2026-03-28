@@ -4,10 +4,10 @@ import { Menulist } from '../../assets/assets'
 
 const EXploreMenu = ({category, setCategory}) => {
   return (
-    <div className='explore-menu' id='explore-meu'>
+    <div className='explore-menu' id='explore-menu'>
         <h2>Explore Our Menu</h2>
-        <p className='explore-menu-text'>If you are looking for West African continental dishes, think about Jollof life. Nothing is more deserving than having healthy nutrition, essential for sustaining a healthy lifestyle and treats. Jollof life offers more than just Nigerian cuisine; we have a variety of sumptuous delicacies for your delight.
-            chooose from our diverse menu featuring delectable array
+        <p className='explore-menu-text'> AfricFood offers more than just Nigerian cuisine; we have a variety of sumptuous delicacies for your delight.
+            Choose from our diverse menu featuring a delectable array of dishes.
         </p>
         <div className='explore-menu-list'>
             {Menulist.map((item, index)=>{

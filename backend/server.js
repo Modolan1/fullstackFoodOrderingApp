@@ -26,6 +26,7 @@ const configuredOrigins = `${process.env.FRONTEND_URLS || ""},${process.env.FRON
     .filter(Boolean)
 
 const allowedOrigins = [...new Set([...defaultLocalOrigins, ...configuredOrigins])]
+const localhostOriginPattern = /^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/i
 
 app.post("/api/order/webhook", express.raw({ type: "application/json" }), handleStripeWebhook)
 
@@ -38,7 +39,7 @@ app.use(cors({
         if (!origin) return callback(null, true)
 
         const normalizedOrigin = origin.replace(/\/$/, "")
-        if (allowedOrigins.includes(normalizedOrigin)) {
+        if (allowedOrigins.includes(normalizedOrigin) || localhostOriginPattern.test(normalizedOrigin)) {
             return callback(null, true)
         }
 

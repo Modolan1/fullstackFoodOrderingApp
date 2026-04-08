@@ -118,6 +118,56 @@ const validateRemoveFood = (req, res, next) => {
     next()
 }
 
+const validateUpdateFood = (req, res, next) => {
+    const errors = []
+    const id = normalizeString(req.body.id)
+    const name = normalizeString(req.body.name)
+    const description = normalizeString(req.body.description)
+    const category = normalizeString(req.body.category)
+    const priceValue = normalizeString(req.body.price)
+    const price = Number(priceValue)
+
+    if (!validateMongoId(id)) {
+        addFieldError(errors, "id", "A valid food id is required.")
+    }
+
+    if (!name) {
+        addFieldError(errors, "name", "Name is required.")
+    } else if (name.length > 120) {
+        addFieldError(errors, "name", "Name must be 120 characters or fewer.")
+    }
+
+    if (!description) {
+        addFieldError(errors, "description", "Description is required.")
+    } else if (description.length > 1000) {
+        addFieldError(errors, "description", "Description must be 1000 characters or fewer.")
+    }
+
+    if (!category) {
+        addFieldError(errors, "category", "Category is required.")
+    } else if (!foodCategories.includes(category)) {
+        addFieldError(errors, "category", "Category is invalid.")
+    }
+
+    if (!priceValue) {
+        addFieldError(errors, "price", "Price is required.")
+    } else if (!Number.isFinite(price) || price < 0) {
+        addFieldError(errors, "price", "Price must be a valid non-negative number.")
+    }
+
+    if (errors.length > 0) {
+        return sendValidationErrors(res, errors)
+    }
+
+    req.body.id = id
+    req.body.name = name
+    req.body.description = description
+    req.body.category = category
+    req.body.price = Number(price.toFixed(2))
+
+    next()
+}
+
 const validatePlaceOrder = (req, res, next) => {
     const errors = []
     const items = Array.isArray(req.body.items) ? req.body.items : null
@@ -259,6 +309,7 @@ export {
     validateImageUpload,
     validatePlaceOrder,
     validateRemoveFood,
+    validateUpdateFood,
     validateVerifyOrderPayment,
     validateUpdateOrderStatus,
 }

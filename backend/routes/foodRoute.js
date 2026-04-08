@@ -1,7 +1,7 @@
 import express from "express"
-import { addFood, listFood, removeFood } from "../controllers/foodController.js"
+import { addFood, listFood, removeFood, updateFood } from "../controllers/foodController.js"
 import multer from "multer"
-import { validateAddFood, validateImageUpload, validateRemoveFood } from "../middleware/validation.js"
+import { validateAddFood, validateImageUpload, validateRemoveFood, validateUpdateFood } from "../middleware/validation.js"
 import adminAuth from "../middleware/adminAuth.js"
 
 const foodRouter = express.Router();
@@ -44,6 +44,7 @@ const uploadMiddleware = (req, res, next) => {
 
 foodRouter.post("/add", adminAuth, uploadMiddleware, validateImageUpload, validateAddFood, addFood)
 foodRouter.get("/list",listFood)
+foodRouter.post("/update", adminAuth, validateUpdateFood, updateFood)
 foodRouter.post("/remove", adminAuth, validateRemoveFood, removeFood);
 
 

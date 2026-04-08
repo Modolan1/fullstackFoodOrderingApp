@@ -1,4 +1,9 @@
-import { addFood as addFoodService, listFood as listFoodService, removeFood as removeFoodService } from '../services/foodService.js'
+import {
+    addFood as addFoodService,
+    listFood as listFoodService,
+    removeFood as removeFoodService,
+    updateFood as updateFoodService,
+} from '../services/foodService.js'
 import { asyncHandler } from '../utils/appError.js'
 
 const addFood = asyncHandler(async (req, res) => {
@@ -23,4 +28,16 @@ const removeFood = asyncHandler(async (req, res) => {
     res.json({ success: true, message: 'food removed successfully' })
 })
 
-export { addFood, listFood, removeFood }
+const updateFood = asyncHandler(async (req, res) => {
+    const updatedFood = await updateFoodService({
+        id: req.body.id,
+        name: req.body.name,
+        description: req.body.description,
+        price: req.body.price,
+        category: req.body.category,
+    })
+
+    res.json({ success: true, message: 'Food updated successfully.', data: updatedFood })
+})
+
+export { addFood, listFood, removeFood, updateFood }

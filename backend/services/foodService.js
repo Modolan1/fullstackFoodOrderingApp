@@ -4,6 +4,7 @@ import {
   deleteFoodById,
   findAllFoods,
   findFoodById,
+  updateFoodById,
 } from '../repositories/foodRepository.js'
 import { AppError } from '../utils/appError.js'
 
@@ -23,6 +24,21 @@ const addFood = async ({ name, description, price, category, file }) => {
 
 const listFood = async () => findAllFoods()
 
+const updateFood = async ({ id, name, description, price, category }) => {
+  const food = await findFoodById(id)
+
+  if (!food) {
+    throw new AppError('Food item not found.', 404)
+  }
+
+  return updateFoodById(id, {
+    name,
+    description,
+    price,
+    category,
+  })
+}
+
 const removeFood = async (id) => {
   const food = await findFoodById(id)
 
@@ -37,4 +53,4 @@ const removeFood = async (id) => {
   await deleteFoodById(id)
 }
 
-export { addFood, listFood, removeFood }
+export { addFood, listFood, removeFood, updateFood }

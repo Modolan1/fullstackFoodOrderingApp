@@ -13,12 +13,39 @@ import userRouter from "./routes/userRoute.js"
 const app = express()
 const port = process.env.PORT || 4000
 
+const defaultLocalOrigins = [
+    "http://localhost:5173",
+    "http://127.0.0.1:5173",
+    "http://localhost:5174",
+    "http://127.0.0.1:5174",
+]
+
+const configuredOrigins = `${process.env.FRONTEND_URLS || ""},${process.env.FRONTEND_URL || ""}`
+    .split(",")
+    .map((origin) => origin.trim().replace(/\/$/, ""))
+    .filter(Boolean)
+
+const allowedOrigins = [...new Set([...defaultLocalOrigins, ...configuredOrigins])]
+
 app.post("/api/order/webhook", express.raw({ type: "application/json" }), handleStripeWebhook)
 
 //middleware
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
-app.use(cors())
+app.use(cors({
+    origin: (origin, callback) => {
+        // Allow non-browser requests (health checks, curl, ELB probes)
+        if (!origin) return callback(null, true)
+
+        const normalizedOrigin = origin.replace(/\/$/, "")
+        if (allowedOrigins.includes(normalizedOrigin)) {
+            return callback(null, true)
+        }
+
+        return callback(new AppError("CORS origin not allowed", 403))
+    },
+    credentials: true
+}))
 
 //api endpoints
 app.use("/api/food", foodRouter)

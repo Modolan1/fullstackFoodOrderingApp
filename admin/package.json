@@ -1,0 +1,10 @@
+{
+  "name": "admin-runner",
+  "private": true,
+  "scripts": {
+    "dev": "npm --prefix ./admin run dev",
+    "build": "npm --prefix ./admin run build",
+    "lint": "npm --prefix ./admin run lint",
+    "preview": "npm --prefix ./admin run preview"
+  }
+}

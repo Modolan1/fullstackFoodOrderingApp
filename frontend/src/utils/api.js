@@ -1,6 +1,8 @@
 const fallbackApiUrl = 'http://localhost:4000'
 
-export const API_URL = (import.meta.env.VITE_API_URL || fallbackApiUrl).trim().replace(/\/$/, '')
+const configuredApiUrl = import.meta.env.VITE_API_BASE_URL || import.meta.env.VITE_API_URL
+
+export const API_URL = (configuredApiUrl || fallbackApiUrl).trim().replace(/\/$/, '')
 
 const parseJsonResponse = async (response) => {
   const contentType = response.headers.get('content-type') || ''
@@ -13,7 +15,6 @@ const parseJsonResponse = async (response) => {
 
     throw new Error(bodyText || 'Unexpected non-JSON response from server.')
   }
-
   try {
     return JSON.parse(bodyText)
   } catch {
